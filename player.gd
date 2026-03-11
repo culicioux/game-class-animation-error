@@ -12,7 +12,7 @@ const SPEED = 250.0
 var current_dir = "none"
 
 func _ready():
-	$AnimatedSprite2D.play("front_idle")
+	$AnimatedSprite2D.play("down_idle")
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -69,33 +69,33 @@ func play_anim(movement):
 	if dir == "right":
 		anim.flip_h = false
 		if movement == 1:
-			anim.play ("side_walk")
+			anim.play ("right_walk")
 		elif movement == 0:
-				anim.play("side_idle")
+				anim.play("right_idle")
 				print(dir)
 
 	if dir == "left":
 		anim.flip_h = true
 		if movement == 1:
-			anim.play ("side_walk")
+			anim.play ("left_walk")
 		elif movement == 0:
-				anim.play("side_idle")
+				anim.play("left_idle")
 				print(dir)
 
 	if dir == "down":
 		anim.flip_h = true
 		if movement == 1:
-			anim.play ("front_walk")
+			anim.play ("down_walk")
 		elif movement == 0:
-				anim.play("front_idle") 
+				anim.play("down_idle") 
 				print(dir)
 
 	if dir == "up":
-		anim.flip_h = true
+		anim.flip_h = true 
 		if movement == 1:
-			anim.play ("back_walk")
+			anim.play ("up_walk")
 		elif movement == 0:
-				anim.play("back_idle") 
+				anim.play("up_idle") 
 				print(dir)
 
 
@@ -128,22 +128,23 @@ func attack():
 		attack_ip = true
 		if dir == "right":
 			$AnimatedSprite2D.flip_h = false
-			$AnimatedSprite2D.play("front_attack")
+			$AnimatedSprite2D.play("all_attack")
 			$deal_attack_timer.start()
 			print(dir)
 		if dir == "left":
 			$AnimatedSprite2D.flip_h = true
-			$AnimatedSprite2D.play("front_attack")
+			$AnimatedSprite2D.play("all_attack")
 			$deal_attack_timer.start()
 			print(dir)
 		if dir == "down":
-			$AnimatedSprite2D.play("front_attack")
+			$AnimatedSprite2D.play("all_attack")
 			$deal_attack_timer.start()
 			print(dir)
 		if dir == "up":
-			$AnimatedSprite2D.play("front_attack")
+			$AnimatedSprite2D.play("all_attack")
 			$deal_attack_timer.start()
 		if dir == "none":
+			$AnimatedSprite2D.play("all_attack")
 			print("none")
 			
 
