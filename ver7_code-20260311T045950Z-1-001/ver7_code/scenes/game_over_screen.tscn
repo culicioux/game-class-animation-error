@@ -1,0 +1,109 @@
+[gd_scene load_steps=12 format=3 uid="uid://c1phnhuhi2o6h"]
+
+[ext_resource type="Texture2D" uid="uid://b11d5cckqvdjb" path="res://assets/UI (temp rn)/restartbutton_normal.jpg" id="1_jw6e5"]
+[ext_resource type="Script" uid="uid://c8uapxpvi67gp" path="res://script/game_over_screen.gd" id="1_wa2qn"]
+[ext_resource type="Texture2D" uid="uid://cyci78ajg4wkd" path="res://assets/UI (temp rn)/restartbutton_pressed.jpg" id="2_wa2qn"]
+[ext_resource type="Texture2D" uid="uid://b1c4xxievocyq" path="res://assets/UI (temp rn)/restartbutton_hover.jpg" id="3_cyfkl"]
+
+[sub_resource type="Animation" id="Animation_cyfkl"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_wa2qn"]
+resource_name = "restart"
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xx0b3"]
+_data = {
+&"RESET": SubResource("Animation_cyfkl"),
+&"restart": SubResource("Animation_wa2qn")
+}
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4vnjk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4vnjk"]
+font_size = 51
+outline_size = 45
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iwahs"]
+font_size = 156
+
+[sub_resource type="LabelSettings" id="LabelSettings_61w2s"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -4.0
+offset_right = -1.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wa2qn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xx0b3")
+}
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -17.0
+offset_top = -8.0
+offset_right = 1145.0
+offset_bottom = 650.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+modulate = Color(0.20152658, 0.20152658, 0.20152658, 1)
+position = Vector2(581.09143, 335.53006)
+scale = Vector2(-1223.8466, 691.8638)
+texture = SubResource("CanvasTexture_4vnjk")
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 382.0
+offset_right = 860.0
+offset_bottom = 536.0
+texture_normal = ExtResource("1_jw6e5")
+texture_pressed = ExtResource("2_wa2qn")
+texture_hover = ExtResource("3_cyfkl")
+
+[node name="Try again?" type="Label" parent="Panel/TextureButton"]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 27.0
+offset_right = 399.0
+offset_bottom = 97.0
+text = "Try again?"
+label_settings = SubResource("LabelSettings_4vnjk")
+
+[node name="YOU DIED!" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 126.0
+offset_right = 1024.0
+offset_bottom = 339.0
+text = "You Died!"
+label_settings = SubResource("LabelSettings_iwahs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="note" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 568.0
+offset_right = 829.0
+offset_bottom = 595.0
+text = "(I just stole this incase you guys want to change it)"
+label_settings = SubResource("LabelSettings_61w2s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 326)
+zoom = Vector2(1.1, 1.1)
+
+[connection signal="pressed" from="Panel/TextureButton" to="." method="_on_texture_button_pressed"]
