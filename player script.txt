@@ -30,30 +30,35 @@ func _physics_process(delta):
 
 func player_movement(delta):
 	
-	if Input.is_action_pressed("right"):
+	if Input.is_action_just_pressed("right"):
 		current_dir = "right"
 		play_anim(1)
 		velocity.x = SPEED
 		velocity.y = 0
+		print(current_dir)
 	elif Input.is_action_pressed("left"):
 		current_dir = "left"
 		play_anim(1)
 		velocity.x = -SPEED
 		velocity.y = 0
+		print(current_dir)
 	elif Input.is_action_pressed("down"):
 		current_dir = "down"
 		play_anim(1)
 		velocity.y = SPEED
 		velocity.x = 0
+		print(current_dir)
 	elif Input.is_action_pressed("up"):
 		current_dir = "up"
 		play_anim(1)
 		velocity.y = -SPEED
 		velocity.x = 0
+		print(current_dir)
 	else:
 		play_anim(0)
 		velocity.x = 0
 		velocity.y = 0
+		print(current_dir)
 
 	move_and_slide()
 
@@ -67,6 +72,7 @@ func play_anim(movement):
 			anim.play ("side_walk")
 		elif movement == 0:
 				anim.play("side_idle")
+				print(dir)
 
 	if dir == "left":
 		anim.flip_h = true
@@ -74,6 +80,7 @@ func play_anim(movement):
 			anim.play ("side_walk")
 		elif movement == 0:
 				anim.play("side_idle")
+				print(dir)
 
 	if dir == "down":
 		anim.flip_h = true
@@ -81,6 +88,7 @@ func play_anim(movement):
 			anim.play ("front_walk")
 		elif movement == 0:
 				anim.play("front_idle") 
+				print(dir)
 
 	if dir == "up":
 		anim.flip_h = true
@@ -88,6 +96,7 @@ func play_anim(movement):
 			anim.play ("back_walk")
 		elif movement == 0:
 				anim.play("back_idle") 
+				print(dir)
 
 
 func player():
@@ -114,23 +123,29 @@ func _on_attack_cooldown_timeout():
 
 func attack():
 	var dir = current_dir
-	if Input.get_action_strength("attack"):
+	if Input.is_action_pressed("attack"):
 		global.player_current_attack = true
 		attack_ip = true
 		if dir == "right":
 			$AnimatedSprite2D.flip_h = false
 			$AnimatedSprite2D.play("front_attack")
 			$deal_attack_timer.start()
+			print(dir)
 		if dir == "left":
 			$AnimatedSprite2D.flip_h = true
 			$AnimatedSprite2D.play("front_attack")
 			$deal_attack_timer.start()
+			print(dir)
 		if dir == "down":
 			$AnimatedSprite2D.play("front_attack")
 			$deal_attack_timer.start()
+			print(dir)
 		if dir == "up":
 			$AnimatedSprite2D.play("front_attack")
 			$deal_attack_timer.start()
+		if dir == "none":
+			print("none")
+			
 
 func _on_deal_attack_timer_timeout() -> void:
 	$deal_attack_timer.stop()
